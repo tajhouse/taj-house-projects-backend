@@ -1,0 +1,152 @@
+### Multilingual API Examples
+### This file contains example HTTP requests for testing the multilingual functionality
+
+### Variables
+@baseUrl = http://localhost:3000
+@projectId = 507f1f77bcf86cd799439011
+@categoryId = 507f1f77bcf86cd799439012
+
+### 1. Create a Category (Multilingual)
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": {
+    "en": "Technology",
+    "ar": "تكنولوجيا"
+  },
+  "description": {
+    "en": "Technology related projects",
+    "ar": "مشاريع متعلقة بالتكنولوجيا"
+  },
+  "isActive": true
+}
+
+### 2. Create a Project (Multilingual)
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "title": {
+    "en": "E-commerce Website",
+    "ar": "موقع تجارة إلكترونية"
+  },
+  "description": {
+    "en": "A full-stack e-commerce platform with modern UI/UX",
+    "ar": "منصة تجارة إلكترونية متكاملة مع واجهة مستخدم حديثة"
+  },
+  "categoryId": "{{categoryId}}",
+  "isActive": true
+}
+
+### 3. Get All Categories in English (Default)
+GET {{baseUrl}}/categories
+
+### 4. Get All Categories in Arabic (Query Parameter)
+GET {{baseUrl}}/categories?lang=ar
+
+### 5. Get All Categories in Arabic (Accept-Language Header)
+GET {{baseUrl}}/categories
+Accept-Language: ar-SA,ar;q=0.9,en;q=0.8
+
+### 6. Get All Projects in English
+GET {{baseUrl}}/projects
+
+### 7. Get All Projects in Arabic (Query Parameter)
+GET {{baseUrl}}/projects?lang=ar
+
+### 8. Get All Projects in Arabic (Accept-Language Header)
+GET {{baseUrl}}/projects
+Accept-Language: ar
+
+### 9. Get Single Category in English
+GET {{baseUrl}}/categories/{{categoryId}}
+
+### 10. Get Single Category in Arabic
+GET {{baseUrl}}/categories/{{categoryId}}?lang=ar
+
+### 11. Get Single Project in English
+GET {{baseUrl}}/projects/{{projectId}}
+
+### 12. Get Single Project in Arabic
+GET {{baseUrl}}/projects/{{projectId}}?lang=ar
+
+### 13. Get Active Categories in English
+GET {{baseUrl}}/categories/active
+
+### 14. Get Active Categories in Arabic
+GET {{baseUrl}}/categories/active?lang=ar
+
+### 15. Update Category (Multilingual)
+PATCH {{baseUrl}}/categories/{{categoryId}}
+Content-Type: application/json
+
+{
+  "name": {
+    "en": "Web Development",
+    "ar": "تطوير الويب"
+  },
+  "description": {
+    "en": "Web development and design projects",
+    "ar": "مشاريع تطوير وتصميم المواقع"
+  }
+}
+
+### 16. Update Project (Multilingual)
+PATCH {{baseUrl}}/projects/{{projectId}}
+Content-Type: application/json
+
+{
+  "title": {
+    "en": "Modern E-commerce Platform",
+    "ar": "منصة تجارة إلكترونية حديثة"
+  },
+  "description": {
+    "en": "A comprehensive e-commerce solution with advanced features",
+    "ar": "حل تجارة إلكترونية شامل مع ميزات متقدمة"
+  }
+}
+
+### Expected Response Examples:
+
+### English Response Example:
+# {
+#   "success": true,
+#   "message": "Projects fetched successfully",
+#   "data": [
+#     {
+#       "id": "507f1f77bcf86cd799439011",
+#       "title": "E-commerce Website",
+#       "description": "A full-stack e-commerce platform",
+#       "category": {
+#         "id": "507f1f77bcf86cd799439012",
+#         "name": "Technology",
+#         "description": "Technology related projects"
+#       },
+#       "isActive": true,
+#       "createdAt": "2024-01-01T00:00:00.000Z",
+#       "updatedAt": "2024-01-01T00:00:00.000Z"
+#     }
+#   ]
+# }
+
+### Arabic Response Example:
+# {
+#   "success": true,
+#   "message": "Projects fetched successfully",
+#   "data": [
+#     {
+#       "id": "507f1f77bcf86cd799439011",
+#       "title": "موقع تجارة إلكترونية",
+#       "description": "منصة تجارة إلكترونية متكاملة",
+#       "category": {
+#         "id": "507f1f77bcf86cd799439012",
+#         "name": "تكنولوجيا",
+#         "description": "مشاريع متعلقة بالتكنولوجيا"
+#       },
+#       "isActive": true,
+#       "createdAt": "2024-01-01T00:00:00.000Z",
+#       "updatedAt": "2024-01-01T00:00:00.000Z"
+#     }
+#   ]
+# }
