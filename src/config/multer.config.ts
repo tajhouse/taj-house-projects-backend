@@ -6,35 +6,44 @@ import { BadRequestException } from '@nestjs/common';
 
 export const multerConfig: MulterOptions = {
   storage: diskStorage({
-      destination: (req, file, cb) => {
-        const uploadPath = join(process.cwd(), 'uploads', 'projects');
-        if (!existsSync(uploadPath)) {
-          mkdirSync(uploadPath, { recursive: true });
-        }
-        cb(null, uploadPath);
-      },
+    destination: (req, file, cb) => {
+      const uploadPath = join(process.cwd(), 'uploads', 'projects');
+      if (!existsSync(uploadPath)) {
+        mkdirSync(uploadPath, { recursive: true });
+      }
+      cb(null, uploadPath);
+    },
     filename: (req, file, cb) => {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      cb(null, `project-${uniqueSuffix}${file.originalname.substr(file.originalname.lastIndexOf('.'))}`);
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      cb(
+        null,
+        `project-${uniqueSuffix}${file.originalname.substr(file.originalname.lastIndexOf('.'))}`,
+      );
     },
   }),
   fileFilter: (req, file, cb) => {
     const allowedMimeTypes = [
       'image/jpeg',
-      'image/jpg', 
+      'image/jpg',
       'image/png',
       'image/gif',
-      'image/webp'
+      'image/webp',
+      'image/avif',
     ];
 
     if (allowedMimeTypes.includes(file.mimetype)) {
       cb(null, true);
-    }else {
-      return cb(new BadRequestException('Only image files (jpg, jpeg, png, gif, webp) are allowed.'), false);
+    } else {
+      return cb(
+        new BadRequestException(
+          'Only image files (jpg, jpeg, png, gif, webp) are allowed.',
+        ),
+        false,
+      );
     }
   },
   limits: {
-    fileSize: 5 * 1024 * 1024, 
-    files: 1, 
+    fileSize: 5 * 1024 * 1024,
+    files: 1,
   },
 };
