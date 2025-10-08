@@ -36,14 +36,14 @@ export const multerConfig: MulterOptions = {
     } else {
       return cb(
         new BadRequestException(
-          'Only image files (jpg, jpeg, png, gif, webp) are allowed.',
+          'Only image files (jpg, jpeg, png, gif, webp,avif) are allowed.',
         ),
         false,
       );
     }
   },
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 50 * 1024 * 1024,
     files: 1,
   },
 };
