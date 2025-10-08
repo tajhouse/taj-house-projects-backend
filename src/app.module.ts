@@ -5,6 +5,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { ContactsModule } from './modules/contacts/contacts.module';
+import { AdminAuthModule } from './modules/auth/admin-auth.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { ContactsModule } from './modules/contacts/contacts.module';
     ProjectsModule,
     CategoriesModule,
     ContactsModule,
+    AdminAuthModule
   ],
 })
 export class AppModule {}
